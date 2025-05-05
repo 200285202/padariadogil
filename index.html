@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Padaria Gil Pães</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Open+Sans&family=Poppins:wght@300;500&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pQVnM0R3mwgXWf+u58kZ3pYhP3gZhWsXE1X2c1NkQ7s5kRnTjHTw3mJjvUFZv7lV7QF6X6tWDpdQUSqUx5x5Ag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --primary: #F4A261;
+      --secondary: #FFF8E8;
+      --accent: #E9C46A;
+      --text: #2B2D42;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--secondary);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: var(--primary);
+      padding: 1rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+    header h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 2.5rem;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    nav {
+      margin-top: 0.5rem;
+    }
+    nav a {
+      margin: 0 1rem;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s;
+    }
+    nav a:hover {
+      opacity: 0.8;
+    }
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      nav {
+        display: none;
+        flex-direction: column;
+        background: var(--primary);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 1rem;
+        box-shadow: 0 2px 8px var(--shadow);
+      }
+      nav.active {
+        display: flex;
+      }
+      nav a {
+        margin: 0.5rem 0;
+      }
+    }
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      flex: 1;
+    }
+    section {
+      margin-bottom: 4rem;
+    }
+    section > h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2rem;
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    section > h2::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--primary);
+      margin: 0.5rem auto 0;
+      border-radius: 2px;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s ease forwards;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    #inicio {
+      background: #fff;
+      padding: 3rem 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px var(--shadow);
+      text-align: center;
+    }
+    #inicio p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+    .vitrine-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    .vitrine-item {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px var(--shadow);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .vitrine-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .vitrine-image {
+      height: 200px;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .vitrine-details {
+      padding: 1rem;
+      text-align: center;
+    }
+    .vitrine-details h3 {
+      font-family: 'Poppins', sans-serif;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .vitrine-details p {
+      font-size: 0.9rem;
+    }
+    .price {
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    #contato {
+      background: var(--accent);
+      padding: 2.5rem 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px var(--shadow);
+      text-align: center;
+    }
+    .social-icons {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .social-icons a {
+      color: var(--primary);
+      font-size: 1.5rem;
+      transition: color 0.3s, transform 0.3s;
+    }
+    .social-icons a:hover {
+      color: #E76F51;
+      transform: scale(1.1);
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #fff;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    @media (max-width: 768px) {
+      .vitrine-image {
+        background-attachment: scroll;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Padaria Gil Pães</h1>
+    <button class="menu-toggle" aria-label="Abrir menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <nav>
+      <a href="#inicio">Início</a>
+      <a href="#doces">Doces</a>
+      <a href="#salgados">Salgados</a>
+      <a href="#pereciveis">Perecíveis</a>
+      <a href="#bebidas">Bebidas</a>
+      <a href="#frios">Frios</a>
+      <a href="#churrasco">Churrasco</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+  <main>
+    <section id="inicio" class="fade-in">
+      <h2>Bem-vindo à Padaria Gil Pães</h2>
+      <p>Delicie-se com nossos pães artesanais, doces irresistíveis, salgados frescos e muito mais. Tudo feito com amor e ingredientes de qualidade!</p>
+    </section>
+
+    <section id="doces" class="fade-in">
+      <h2>Doces</h2>
+      <div class="vitrine-grid">
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Bolo+de+Chocolate');"></div>
+          <div class="vitrine-details">
+            <h3>Bolo de Chocolate</h3>
+            <p>Bolo fofinho com cobertura de ganache cremosa.</p>
+            <p class="price">R$ 30,00/kg</p>
+          </div>
+        </div>
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Torta+de+Limão');"></div>
+          <div class="vitrine-details">
+            <h3>Torta de Limão</h3>
+            <p>Base crocante com recheio azedinho e merengue.</p>
+            <p class="price">R$ 45,00/kg</p>
+          </div>
+        </div>
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Brigadeiro');"></div>
+          <div class="vitrine-details">
+            <h3>Brigadeiro</h3>
+            <p>Doce tradicional com chocolate belga.</p>
+            <p class="price">R$ 2,00/un</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="salgados" class="fade-in">
+      <h2>Salgados</h2>
+      <div class="vitrine-grid">
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Coxinha');"></div>
+          <div class="vitrine-details">
+            <h3>Coxinha</h3>
+            <p>Frango desfiado em massa crocante.</p>
+            <p class="price">R$ 3,00/un</p>
+          </div>
+        </div>
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Esfiha');"></div>
+          <div class="vitrine-details">
+            <h3>Esfiha de Carne</h3>
+            <p>Recheio suculento com temperos especiais.</p>
+            <p class="price">R$ 3,50/un</p>
+          </div>
+        </div>
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Pão+de+Queijo');"></div>
+          <div class="vitrine-details">
+            <h3>Pão de Queijo</h3>
+            <p>Macio e quentinho, feito com queijo mineiro.</p>
+            <p class="price">R$ 2,50/un</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pereciveis" class="fade-in">
+      <h2>Perecíveis</h2>
+      <div class="vitrine-grid">
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Pão+Francês');"></div>
+          <div class="vitrine-details">
+            <h3>Pão Francês</h3>
+            <p>Crocante por fora, macio por dentro.</p>
+            <p class="price">R$ 0,50/un</p>
+          </div>
+        </div>
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Pão+Integral');"></div>
+          <div class="vitrine-details">
+            <h3>Pão Integral</h3>
+            <p>Rico em fibras, ideal para uma dieta saudável.</p>
+            <p class="price">R$ 8,00/un</p>
+          </div>
+        </div>
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Ciabatta');"></div>
+          <div class="vitrine-details">
+            <h3>Ciabatta</h3>
+            <p>Pão rústico com casca firme e miolo leve.</p>
+            <p class="price">R$ 10,00/un</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="bebidas" class="fade-in">
+      <h2>Bebidas</h2>
+      <div class="vitrine-grid">
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Café+Expresso');"></div>
+          <div class="vitrine-details">
+            <h3>Café Expresso</h3>
+            <p>Feito com grãos selecionados.</p>
+            <p class="price">R$ 5,00</p>
+          </div>
+        </div>
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Suco+Natural');"></div>
+          <div class="vitrine-details">
+            <h3>Suco Natural</h3>
+            <p>Laranja espremida na hora.</p>
+            <p class="price">R$ 7,00</p>
+          </div>
+        </div>
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Chá+Gelado');"></div>
+          <div class="vitrine-details">
+            <h3>Chá Gelado</h3>
+            <p>Refrescante, com toque de limão.</p>
+            <p class="price">R$ 6,00</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="frios" class="fade-in">
+      <h2>Frios</h2>
+      <div class="vitrine-grid">
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Queijo+Mussarela');"></div>
+          <div class="vitrine-details">
+            <h3>Queijo Mussarela</h3>
+            <p>Fatiado na hora, ideal para sanduíches.</p>
+            <p class="price">R$ 35,00/kg</p>
+          </div>
+        </div>
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Presunto');"></div>
+          <div class="vitrine-details">
+            <h3>Presunto</h3>
+            <p>Fatiado fino, perfeito para lanches.</p>
+            <p class="price">R$ 30,00/kg</p>
+          </div>
+        </div>
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Salame');"></div>
+          <div class="vitrine-details">
+            <h3>Salame</h3>
+            <p>Salame italiano com sabor marcante.</p>
+            <p class="price">R$ 50,00/kg</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="churrasco" class="fade-in">
+      <h2>Churrasco</h2>
+      <div class="vitrine-grid">
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Picanha');"></div>
+          <div class="vitrine-details">
+            <h3>Picanha</h3>
+            <p>Corte premium para seu churrasco.</p>
+            <p class="price">R$ 70,00/kg</p>
+          </div>
+        </div>
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Linguiça');"></div>
+          <div class="vitrine-details">
+            <h3>Linguiça Toscana</h3>
+            <p>Temperada e suculenta, ideal para grelhar.</p>
+            <p class="price">R$ 25,00/kg</p>
+          </div>
+        </div>
+        <div class="vitrine-item">
+          <div class="vitrine-image" style="background-image: url('https://via.placeholder.com/300x200?text=Carvão');"></div>
+          <div class="vitrine-details">
+            <h3>Carvão</h3>
+            <p>Carvão de alta qualidade para churrasco.</p>
+            <p class="price">R$ 15,00/saco</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" class="fade-in">
+      <h2>Entre em Contato</h2>
+      <p>Faça seu pedido ou visite-nos! Estamos prontos para atendê-lo.</p>
+      <p><strong>Endereço:</strong> Rua dos Sabores, 123, Centro, Cidade</p>
+      <p><strong>Telefone:</strong> (11) 99999-9999</p>
+      <div class="social-icons">
+        <a href="https://wa.me/5511999999999" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://instagram.com/padariagilpaes" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://facebook.com/padariagilpaes" target="_blank"><i class="fab fa-facebook"></i></a>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>© 2025 Padaria Gil Pães. Todos os direitos reservados.</p>
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const menu = document.querySelector('nav');
+      
+      menuToggle.addEventListener('click', function() {
+        menu.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>
